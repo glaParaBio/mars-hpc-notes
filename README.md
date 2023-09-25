@@ -2,17 +2,18 @@
 
 * [General](#general)
     * [Login to mars without typing password](#login-to-mars-without-typing-password)
-    * [iTransfer files from local to mars:](#itransfer-files-from-local-to-mars)
+    * [Transfer files from local to mars](#transfer-files-from-local-to-mars)
 * [Writing and editing scripts](#writing-and-editing-scripts)
 * [Setting up project environment](#setting-up-project-environment)
     * [Install conda/mamba package manager](#install-condamamba-package-manager)
     * [Configure bioconda](#configure-bioconda)
-    * [Creating a project environments](#creating-a-project-environments)
-* [Submit jobs](#submit-jobs)
+    * [Creating a project environment](#creating-a-project-environment)
+* [Slurm scheduler](#slurm-scheduler)
+    * [Submit jobs](#submit-jobs)
     * [Interactive jobs](#interactive-jobs)
-    * [Check and cancel jobs:](#check-and-cancel-jobs)
+    * [Check and cancel jobs](#check-and-cancel-jobs)
 * [Where to write output](#where-to-write-output)
-* [Job dependencies (i.e. *start this job after another one has completed*)](#job-dependencies-ie-start-this-job-after-another-one-has-completed)
+* [Job dependencies](#job-dependencies)
 
 <!-- vim-markdown-toc -->
 
@@ -20,7 +21,7 @@ These are scattered notes for working on mvls-mars HPC and more in general for
 managing bioinformatics projects.
 
 NB: This notes are likely to change, become obsolete and definitely they are
-not incomplete. They assume your PC has Unix system (MacOS or Linux).
+incomplete. They assume your PC has a Unix system (MacOS or Linux).
 
 # General
 
@@ -57,7 +58,7 @@ Now you can login to mars just by typing:
 mars
 ```
 
-## iTransfer files from local to mars:
+## Transfer files from local to mars
 
 ```
 rsync -arvP /some/local/file $mars:sharedscratch/
@@ -118,7 +119,7 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-## Creating a project environments
+## Creating a project environment
 
 When starting a new project, for example [apolloDemoData](https://github.com/glaParaBio/apolloDemoData):
 
@@ -165,7 +166,9 @@ mamba activate apolloDemoData
 different server. Consider creating a GitHub repository for your project(s) and
 add `requirements.txt` to it together with your scripts.
 
-# Submit jobs
+# Slurm scheduler
+
+## Submit jobs
 
 Something like:
 
@@ -208,7 +211,7 @@ downloading from ftp site (e.g. from ENA archive):
 export ftp_proxy=ftp://wwwcache.gla.ac.uk:8080
 ```
 
-## Check and cancel jobs:
+## Check and cancel jobs
 
 To check jobs:
 
@@ -234,8 +237,8 @@ Most likely you want `/users/db291g/sharedscratch` since it is a large
 partition and all nodes have access to it. The home directory has only 20GB of
 space so don't use it for anything other than configuration files and small programs.
 
-# Job dependencies (i.e. *start this job after another one has completed*)
+# Job dependencies
 
-I use [snakemake](https://snakemake.github.io/) for this, regardless of using
+I.e. *start this job after another one has completed*. I use [snakemake](https://snakemake.github.io/) for this, regardless of using
 an HPC. It has a learing curve but if you regularly work on bioinformatics
-projects it is worth it.
+projects it is worth it. Ask for more information...
