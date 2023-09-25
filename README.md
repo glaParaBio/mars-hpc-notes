@@ -2,7 +2,7 @@
 
 * [General](#general)
     * [Login to mars without typing password](#login-to-mars-without-typing-password)
-    * [Transfer files from local to mars](#transfer-files-from-local-to-mars)
+    * [Transfer files between local and mars](#transfer-files-between-local-and-mars)
 * [Writing and editing scripts](#writing-and-editing-scripts)
 * [Setting up project environment](#setting-up-project-environment)
     * [Install conda/mamba package manager](#install-condamamba-package-manager)
@@ -58,7 +58,7 @@ Now you can login to mars just by typing:
 mars
 ```
 
-## Transfer files from local to mars
+## Transfer files between local and mars
 
 ```
 rsync -arvP /some/local/file $mars:sharedscratch/
@@ -77,10 +77,10 @@ file patterns, among many other things.
 
 * Option 1 (my choice): Use `vim` directly on mars 
 
-* Option 2: Many text editors can connect to ia remote server to edit files as
+* Option 2: Many text editors can connect to a remote server to edit files as
   if they were on your local PC. E.g. use [vscode](https://code.visualstudio.com/)
   with plugin
-  (remote-shh)[https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh]. 
+  [remote-ssh](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh).
 
 
 # Setting up project environment
@@ -192,7 +192,7 @@ that will last up to 8 hours:
 srun --nodes=1 --ntasks-per-node=1 --time=08:00:00 --pty bash -i
 ```
 
-You may want to add this line to your `~/.bashrc` file so you don't have to remember all that:
+You may want to add this line to your `~/.bashrc` file on mars so you don't have to remember all that:
 
 ```
 alias irun='srun --nodes=1 --ntasks-per-node=1 --time=08:00:00 --pty bash -i'
@@ -204,7 +204,7 @@ now you can start an interactive job just by executing:
 irun
 ```
 
-Unrelated, but once we are at it. Add this line to `~/.bashrc` to enable
+Unrelated, but once we are at it: add this line to `~/.bashrc` to enable
 downloading from ftp site (e.g. from ENA archive):
 
 ```
@@ -242,3 +242,4 @@ space so don't use it for anything other than configuration files and small prog
 I.e. *start this job after another one has completed*. I use [snakemake](https://snakemake.github.io/) for this, regardless of using
 an HPC. It has a learing curve but if you regularly work on bioinformatics
 projects it is worth it. Ask for more information...
+:
