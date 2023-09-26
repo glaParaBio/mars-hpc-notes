@@ -194,6 +194,20 @@ do
 done
 ```
 
+Where `...` are options to sbatch as above. Or write a temporary shell script:
+
+```
+for i in A B C
+do
+    cat << "EOF" > $i.tmp.sh
+#!/usr/bin/bash
+
+echo $i > $i.txt
+EOF
+    sbatch $i.tmp.sh
+done
+```
+
 ## Interactive jobs
 
 Sometimes it is useful to login to a working node to experiment and
