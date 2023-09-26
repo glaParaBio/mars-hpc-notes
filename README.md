@@ -29,6 +29,8 @@ incomplete. They assume your PC has a Unix system (MacOS or Linux).
 
 * [Storage and data](https://mars.ice.gla.ac.uk/storage-and-data/)
 
+* Login: `ssh db291g@mars-login.ice.gla.ac.uk` (replace db291g with you mars' username)
+
 ## Login to mars without typing password
 
 If you have not used ssh before on your local PC, execute (default options are ok):
@@ -70,7 +72,7 @@ To *move* files from mars to local (I.e. remove from mars after transfer):
 rsync -arvP --remove-source-files $mars:~/sharedscratch/somefile.txt ./
 ```
 
-`rsync` also has useful `--dry-run\-n` optioni and options to include/exclude
+`rsync` also has a useful `--dry-run\-n` option and options to include/exclude
 file patterns, among many other things.
 
 # Writing and editing scripts
@@ -129,7 +131,9 @@ When starting a new project, for example [apolloDemoData](https://github.com/gla
 mamba create --yes --name apolloDemoData
 ```
 
-* Write a text file listing all the dependencies one per line, call this file e.g. [requirements.txt](https://github.com/glaParaBio/apolloDemoData/blob/master/requirements.txt):
+* Write a text file listing all the dependencies one per line, call this file
+  e.g.
+  [requirements.txt](https://github.com/glaParaBio/apolloDemoData/blob/master/requirements.txt):
 
 ```
 snakemake =7.32.3
@@ -144,7 +148,7 @@ Specifying program versions is optional but recommended. Usually googling
 *some-program conda* will lead you to the exact name you need, e.g. *ggplot
 conda* should get https://anaconda.org/conda-forge/r-ggplot2 on the top hits.
 
-If a program is not on (bio)conda you can always isntall it with traditional
+If a program is not on (bio)conda you can always install it with traditional
 methods in the dedicated environment.
 
 * Install dependencies
@@ -170,7 +174,7 @@ add `requirements.txt` to it together with your scripts.
 
 ## Submit jobs
 
-Something like:
+* Submit a single jobs wrapped in script my-script.sh, like:
 
 ```
 sbatch --cpus-per-task=10 --mem=10G --parsable --time=08:00:00 -o slurm/%x.%j.out -e slurm/%x.%j.err my-scripts.sh -J myjob
@@ -180,6 +184,15 @@ will run `my-scripts.sh` on a node with at least 10 CPUs available and 10 GB of
 memory to. Standard output and errors will go to `slurm/%j.out` and
 `slurm/%j.err` where `%j` will be replaced by the jobid and `%x` with the job
 name (NB: directory `slurm` must exists before starting the job).
+
+* Submit jobs in a loop, without a wrapping script. Use the `--wrap` argument:
+
+```
+for i in A B C
+do
+    sbatch ... --wrap "echo $i > $i.txt"
+done
+```
 
 ## Interactive jobs
 
@@ -239,7 +252,8 @@ space so don't use it for anything other than configuration files and small prog
 
 # Job dependencies
 
-I.e. *start this job after another one has completed*. I use [snakemake](https://snakemake.github.io/) for this, regardless of using
-an HPC. It has a learing curve but if you regularly work on bioinformatics
-projects it is worth it. Ask for more information...
+I.e. *start this job after another one has completed*. I use
+[snakemake](https://snakemake.github.io/) for this, regardless of using an HPC.
+It has a learing curve but if you regularly work on bioinformatics projects it
+is worth it. Ask for more information...
 :
