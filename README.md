@@ -12,6 +12,9 @@
     * [Submit jobs](#submit-jobs)
     * [Interactive jobs](#interactive-jobs)
     * [Check and cancel jobs](#check-and-cancel-jobs)
+        * [Check job status](#check-job-status)
+        * [Cancel jobs](#cancel-jobs)
+        * [Check what a running job is doing](#check-what-a-running-job-is-doing)
 * [Where to write output](#where-to-write-output)
 * [Job dependencies](#job-dependencies)
 
@@ -231,16 +234,16 @@ now you can start an interactive job just by executing:
 irun
 ```
 
-Unrelated, but once we are at it: add this line to `~/.bashrc` to enable
+This is not needed anymore since IT made it a global setting: enable
 downloading from ftp site (e.g. from ENA archive):
 
 ```
-export ftp_proxy=ftp://wwwcache.gla.ac.uk:8080
+export ftp_proxy=http://wwwcache.gla.ac.uk:8080
 ```
 
 ## Check and cancel jobs
 
-To check jobs:
+### Check job status
 
 ```
 sacct 
@@ -252,11 +255,22 @@ sacct -l
 sacct -P --delimiter $'\t'
 ```
 
-To cancel jobs:
+### Cancel jobs
 
 ```
 scancel 1234 1235 # Where 1234 is the job ID from sacct
 ```
+
+### Check what a running job is doing
+
+```
+squeue --user $USER # <- get the NODELIST of a job of interest
+ssh <nodeXYZ>          # Login to working node
+top                    # Check activity
+```
+
+Consider installing and using [htop](https://htop.dev/) instead of `top` for
+fancier display.
 
 # Where to write output
 
