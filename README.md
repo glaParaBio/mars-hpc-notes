@@ -34,6 +34,18 @@ incomplete. They assume your PC has a Unix system (MacOS or Linux).
 
 * Login: `ssh db291g@mars-login.ice.gla.ac.uk` (replace db291g with you mars' username)
 
+You need an
+[account](https://mars.ice.gla.ac.uk/user-manuals/getting-an-account-on-mars/)
+for submitting jobs, so it is convenient to add this to your `~/.bashrc` file
+so you don't need to use `-A/--account` in your submission commands:
+
+```
+export SBATCH_ACCOUNT=projectXYZ
+```
+
+Replace `projectXYZ` with your account. You can get your project account from
+`sacctmgr list user -p Name=`whoami``
+
 ## Login to mars without typing password
 
 If you have not used ssh before on your local PC, execute (default options are ok):
@@ -219,14 +231,16 @@ running resource intensive programs). Execute this to spawn an interactive job
 that will last up to 8 hours:
 
 ```
-srun --nodes=1 --ntasks-per-node=1 --time=08:00:00 --pty bash -i
+srun --account none --nodes=1 --ntasks-per-node=1 --time=08:00:00 --pty bash -i
 ```
 
 You may want to add this line to your `~/.bashrc` file on mars so you don't have to remember all that:
 
 ```
-alias irun='srun --nodes=1 --ntasks-per-node=1 --time=08:00:00 --pty bash -i'
+alias irun='srun --account none --nodes=1 --ntasks-per-node=1 --time=08:00:00 --pty bash -i'
 ```
+
+At some point you may need to replace `none` with your actual account.
 
 now you can start an interactive job just by executing:
 
