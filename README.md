@@ -36,7 +36,7 @@ incomplete. They assume your PC has a Unix system (MacOS or Linux).
 
 You need an
 [account](https://mars.ice.gla.ac.uk/user-manuals/getting-an-account-on-mars/)
-for submitting jobs, so it is convenient to add this to your `~/.bashrc` file
+for submitting jobs. Add this to your `~/.bashrc` file
 so you don't need to use `-A/--account` in your submission commands:
 
 ```
@@ -44,7 +44,10 @@ export SBATCH_ACCOUNT=projectXYZ
 ```
 
 Replace `projectXYZ` with your account. You can get your project account from
-`sacctmgr list user -p Name=`whoami``
+
+```
+sacctmgr list user -p Name=`whoami` | column -t -s '|'
+```
 
 ## Login to mars without typing password
 
