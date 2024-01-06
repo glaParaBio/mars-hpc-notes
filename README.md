@@ -123,7 +123,7 @@ except when asked where to install mamba you may want to replace the default
 `/users/db291g/mambaforge` with:
 
 ```
-/users/db291g/sharedscratch
+/users/db291g/sharedscratch/mambaforge
 ```
 
 (replace db291g with your username) 
